@@ -35,7 +35,7 @@ const Hero = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button variant="hero" size="hero" className="group" asChild>
                 <a href="/mentors">
                   Find a Mentor
@@ -46,7 +46,6 @@ const Hero = () => {
                 <a href="/auth">Become a Mentor</a>
               </Button>
             </div>
-
           </div>
 
           {/* Hero Image */}
