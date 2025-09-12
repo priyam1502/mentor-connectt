@@ -16,7 +16,7 @@ const Footer = () => {
               MentorConnect
             </div>
             <p className="text-muted-foreground max-w-sm">
-              Connecting ambitious professionals with industry experts to accelerate career growth 
+              Connecting professionals with industry experts to accelerate career growth 
               through meaningful mentorship.
             </p>
             <div className="flex gap-3">

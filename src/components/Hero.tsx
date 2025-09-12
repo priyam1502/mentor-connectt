@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Star, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-mentorship.jpg";
 import floatingIcons from "@/assets/floating-icons.jpg";
 
@@ -47,21 +47,6 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-8 text-white/80">
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                <span className="font-semibold">10K+ Mentors</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 text-yellow-300" />
-                <span className="font-semibold">4.9 Rating</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                <span className="font-semibold">50K+ Sessions</span>
-              </div>
-            </div>
           </div>
 
           {/* Hero Image */}
