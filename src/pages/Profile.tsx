@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Camera, MapPin, Calendar, Award, Edit2, Save, X } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,26 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DashboardLayout from '@/components/DashboardLayout';
-
-const userProfile = {
-  name: "Alex Thompson",
-  title: "Senior Product Manager",
-  company: "Tech Innovators Inc.",
-  location: "San Francisco, CA",
-  joinDate: "January 2024",
-  avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-  bio: "Passionate product manager with 8+ years of experience in building user-centric products. I love mentoring aspiring PMs and sharing insights about product strategy, user research, and team leadership.",
-  email: "alex.thompson@email.com",
-  phone: "+1 (555) 123-4567",
-  website: "https://alexthompson.dev",
-  skills: ["Product Strategy", "User Research", "Agile", "Leadership", "Data Analysis", "A/B Testing"],
-  stats: {
-    sessions: 47,
-    rating: 4.9,
-    reviews: 32,
-    hours: 156
-  }
-};
+import { useUserProfile } from '@/hooks/useUserProfile';
+import { useToast } from '@/hooks/use-toast';
 
 const achievements = [
   { title: "Top Mentor", description: "Rated 4.9+ stars", icon: Award },
@@ -37,18 +19,82 @@ const achievements = [
 ];
 
 export default function Profile() {
+  const { profile, mentorProfile, loading, updateProfile, uploadAvatar, isMentor } = useUserProfile();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProfile, setEditedProfile] = useState(userProfile);
+  const [editedProfile, setEditedProfile] = useState(profile);
 
-  const handleSave = () => {
-    // In a real app, this would save to the backend
-    console.log("Saving profile:", editedProfile);
-    setIsEditing(false);
+  React.useEffect(() => {
+    if (profile) {
+      setEditedProfile(profile);
+    }
+  }, [profile]);
+
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading profile...</p>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <DashboardLayout>
+        <div className="text-center py-16">
+          <h2 className="text-2xl font-semibold mb-2">Profile not found</h2>
+          <p className="text-muted-foreground">Unable to load your profile information.</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  const handleSave = async () => {
+    if (!editedProfile) return;
+    
+    const { error } = await updateProfile(editedProfile);
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update profile. Please try again.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Profile updated successfully!",
+      });
+      setIsEditing(false);
+    }
   };
 
   const handleCancel = () => {
-    setEditedProfile(userProfile);
+    setEditedProfile(profile);
     setIsEditing(false);
+  };
+
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const { error } = await uploadAvatar(file);
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to upload profile photo. Please try again.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Profile photo updated successfully!",
+      });
+    }
   };
 
   return (
@@ -89,115 +135,107 @@ export default function Profile() {
                 <div className="text-center space-y-4">
                   <div className="relative inline-block">
                     <Avatar className="w-32 h-32">
-                      <AvatarImage src={editedProfile.avatar} />
+                      <AvatarImage src={profile.avatar_url || undefined} />
                       <AvatarFallback className="text-2xl">
-                        {editedProfile.name.split(' ').map(n => n[0]).join('')}
+                        {profile.full_name?.split(' ').map(n => n[0]).join('') || profile.email[0].toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    {isEditing && (
+                    <div className="absolute -bottom-2 -right-2">
+                      <input
+                        type="file"
+                        id="avatar-upload"
+                        accept="image/*"
+                        onChange={handleAvatarUpload}
+                        className="hidden"
+                      />
                       <Button
                         size="sm"
-                        className="absolute -bottom-2 -right-2 rounded-full w-10 h-10 p-0"
+                        className="rounded-full w-10 h-10 p-0"
+                        onClick={() => document.getElementById('avatar-upload')?.click()}
+                        variant="outline"
                       >
                         <Camera className="w-4 h-4" />
                       </Button>
-                    )}
+                    </div>
                   </div>
                   
                   <div className="space-y-2">
                     {isEditing ? (
                       <Input
-                        value={editedProfile.name}
-                        onChange={(e) => setEditedProfile(prev => ({ ...prev, name: e.target.value }))}
+                        value={editedProfile?.full_name || ''}
+                        onChange={(e) => setEditedProfile(prev => prev ? ({ ...prev, full_name: e.target.value }) : null)}
                         className="text-center font-semibold"
+                        placeholder="Full Name"
                       />
                     ) : (
-                      <h2 className="text-2xl font-bold">{editedProfile.name}</h2>
+                      <h2 className="text-2xl font-bold">{profile.full_name || 'User'}</h2>
                     )}
                     
-                    {isEditing ? (
-                      <Input
-                        value={editedProfile.title}
-                        onChange={(e) => setEditedProfile(prev => ({ ...prev, title: e.target.value }))}
-                        className="text-center"
-                      />
-                    ) : (
-                      <p className="text-muted-foreground">{editedProfile.title}</p>
+                    {isMentor && mentorProfile && (
+                      <>
+                        <p className="text-muted-foreground">{mentorProfile.title}</p>
+                        <p className="text-sm text-muted-foreground">{mentorProfile.company}</p>
+                      </>
                     )}
                     
-                    {isEditing ? (
-                      <Input
-                        value={editedProfile.company}
-                        onChange={(e) => setEditedProfile(prev => ({ ...prev, company: e.target.value }))}
-                        className="text-center"
-                      />
-                    ) : (
-                      <p className="text-sm text-muted-foreground">{editedProfile.company}</p>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-center text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {isEditing ? (
-                      <Input
-                        value={editedProfile.location}
-                        onChange={(e) => setEditedProfile(prev => ({ ...prev, location: e.target.value }))}
-                        className="text-center text-sm"
-                      />
-                    ) : (
-                      <span>{editedProfile.location}</span>
-                    )}
+                    <p className="text-sm text-muted-foreground capitalize">
+                      {profile.user_type} • {profile.email}
+                    </p>
                   </div>
 
                   <div className="flex items-center justify-center text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4 mr-1" />
-                    <span>Joined {editedProfile.joinDate}</span>
+                    <span>Joined January 2024</span>
                   </div>
                 </div>
 
                 <Separator className="my-6" />
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <p className="text-2xl font-bold text-primary">{userProfile.stats.sessions}</p>
-                    <p className="text-sm text-muted-foreground">Sessions</p>
+                {/* Stats for Mentors */}
+                {isMentor && (
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <p className="text-2xl font-bold text-primary">47</p>
+                      <p className="text-sm text-muted-foreground">Sessions</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-primary">4.9</p>
+                      <p className="text-sm text-muted-foreground">Rating</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-primary">32</p>
+                      <p className="text-sm text-muted-foreground">Reviews</p>
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-primary">156h</p>
+                      <p className="text-sm text-muted-foreground">Total Hours</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-primary">{userProfile.stats.rating}</p>
-                    <p className="text-sm text-muted-foreground">Rating</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-primary">{userProfile.stats.reviews}</p>
-                    <p className="text-sm text-muted-foreground">Reviews</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-primary">{userProfile.stats.hours}h</p>
-                    <p className="text-sm text-muted-foreground">Total Hours</p>
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
 
-            {/* Achievements */}
-            <Card className="border-0 shadow-sm mt-6">
-              <CardHeader>
-                <CardTitle className="text-lg">Achievements</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                      <achievement.icon className="w-5 h-5 text-primary" />
+            {/* Achievements for Mentors */}
+            {isMentor && (
+              <Card className="border-0 shadow-sm mt-6">
+                <CardHeader>
+                  <CardTitle className="text-lg">Achievements</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {achievements.map((achievement, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <achievement.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-medium">{achievement.title}</p>
+                        <p className="text-sm text-muted-foreground">{achievement.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium">{achievement.title}</p>
-                      <p className="text-sm text-muted-foreground">{achievement.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Main Content */}
@@ -218,13 +256,15 @@ export default function Profile() {
                   <CardContent>
                     {isEditing ? (
                       <Textarea
-                        value={editedProfile.bio}
-                        onChange={(e) => setEditedProfile(prev => ({ ...prev, bio: e.target.value }))}
+                        value={editedProfile?.bio || ''}
+                        onChange={(e) => setEditedProfile(prev => prev ? ({ ...prev, bio: e.target.value }) : null)}
                         rows={6}
                         placeholder="Write about yourself..."
                       />
                     ) : (
-                      <p className="text-muted-foreground leading-relaxed">{editedProfile.bio}</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {profile.bio || 'No bio added yet.'}
+                      </p>
                     )}
                   </CardContent>
                 </Card>
@@ -238,17 +278,14 @@ export default function Profile() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {editedProfile.skills.map((skill, index) => (
+                      {mentorProfile?.expertise_areas?.map((skill, index) => (
                         <Badge key={index} variant="secondary" className="text-sm py-1 px-3">
                           {skill}
                         </Badge>
-                      ))}
+                      )) || (
+                        <p className="text-muted-foreground">No skills added yet.</p>
+                      )}
                     </div>
-                    {isEditing && (
-                      <div className="mt-4">
-                        <Input placeholder="Add a new skill and press Enter" />
-                      </div>
-                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -262,49 +299,15 @@ export default function Profile() {
                   <CardContent className="space-y-4">
                     <div>
                       <label className="text-sm font-medium">Email</label>
-                      {isEditing ? (
-                        <Input
-                          value={editedProfile.email}
-                          onChange={(e) => setEditedProfile(prev => ({ ...prev, email: e.target.value }))}
-                          type="email"
-                          className="mt-1"
-                        />
-                      ) : (
-                        <p className="text-muted-foreground mt-1">{editedProfile.email}</p>
-                      )}
+                      <p className="text-muted-foreground mt-1">{profile.email}</p>
                     </div>
                     
-                    <div>
-                      <label className="text-sm font-medium">Phone</label>
-                      {isEditing ? (
-                        <Input
-                          value={editedProfile.phone}
-                          onChange={(e) => setEditedProfile(prev => ({ ...prev, phone: e.target.value }))}
-                          type="tel"
-                          className="mt-1"
-                        />
-                      ) : (
-                        <p className="text-muted-foreground mt-1">{editedProfile.phone}</p>
-                      )}
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-medium">Website</label>
-                      {isEditing ? (
-                        <Input
-                          value={editedProfile.website}
-                          onChange={(e) => setEditedProfile(prev => ({ ...prev, website: e.target.value }))}
-                          type="url"
-                          className="mt-1"
-                        />
-                      ) : (
-                        <p className="text-muted-foreground mt-1">
-                          <a href={editedProfile.website} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
-                            {editedProfile.website}
-                          </a>
-                        </p>
-                      )}
-                    </div>
+                    {isMentor && mentorProfile?.timezone && (
+                      <div>
+                        <label className="text-sm font-medium">Timezone</label>
+                        <p className="text-muted-foreground mt-1">{mentorProfile.timezone}</p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>

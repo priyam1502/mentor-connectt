@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,22 +19,23 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/features" className="text-foreground/80 hover:text-foreground transition-colors">
               Features
             </a>
-            <a href="#mentors" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/find-mentors" className="text-foreground/80 hover:text-foreground transition-colors">
               Find Mentors
             </a>
-            <a href="#about" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/about" className="text-foreground/80 hover:text-foreground transition-colors">
               About
             </a>
-            <a href="#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/pricing" className="text-foreground/80 hover:text-foreground transition-colors">
               Pricing
             </a>
           </div>
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <Button variant="ghost" asChild>
               <a href="/auth">Sign In</a>
             </Button>
@@ -55,19 +57,22 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-white/20">
             <div className="flex flex-col space-y-4">
-              <a href="#features" className="text-foreground/80 hover:text-foreground transition-colors">
+              <a href="/features" className="text-foreground/80 hover:text-foreground transition-colors">
                 Features
               </a>
-              <a href="#mentors" className="text-foreground/80 hover:text-foreground transition-colors">
+              <a href="/find-mentors" className="text-foreground/80 hover:text-foreground transition-colors">
                 Find Mentors
               </a>
-              <a href="#about" className="text-foreground/80 hover:text-foreground transition-colors">
+              <a href="/about" className="text-foreground/80 hover:text-foreground transition-colors">
                 About
               </a>
-              <a href="#pricing" className="text-foreground/80 hover:text-foreground transition-colors">
+              <a href="/pricing" className="text-foreground/80 hover:text-foreground transition-colors">
                 Pricing
               </a>
               <div className="flex flex-col space-y-2 pt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <ThemeToggle />
+                </div>
                 <Button variant="ghost" className="justify-start" asChild>
                   <a href="/auth">Sign In</a>
                 </Button>
