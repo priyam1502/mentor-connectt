@@ -62,13 +62,6 @@ export type Database = {
             foreignKeyName: "mentors_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: false
-            referencedRelation: "mentor_public_profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "mentors_profile_id_fkey"
-            columns: ["profile_id"]
-            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -158,13 +151,6 @@ export type Database = {
             foreignKeyName: "sessions_mentee_id_fkey"
             columns: ["mentee_id"]
             isOneToOne: false
-            referencedRelation: "mentor_public_profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "sessions_mentee_id_fkey"
-            columns: ["mentee_id"]
-            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -179,23 +165,7 @@ export type Database = {
       }
     }
     Views: {
-      mentor_public_profiles: {
-        Row: {
-          available: boolean | null
-          avatar_url: string | null
-          bio: string | null
-          company: string | null
-          expertise_areas: string[] | null
-          full_name: string | null
-          hourly_rate: number | null
-          id: string | null
-          languages: string[] | null
-          timezone: string | null
-          title: string | null
-          years_experience: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       [_ in never]: never
