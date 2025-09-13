@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/contexts/AuthContext";
 import { LogOut, Bell } from "lucide-react";
 
@@ -28,18 +29,24 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             </Button>
             
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-semibold">
+              <Avatar className="w-8 h-8">
+                <AvatarFallback className="bg-gradient-primary text-white text-sm font-semibold">
                   {user?.email?.charAt(0).toUpperCase()}
-                </span>
-              </div>
+                </AvatarFallback>
+              </Avatar>
               <span className="hidden sm:inline text-sm font-medium">
                 {user?.email}
               </span>
             </div>
             
-            <Button variant="ghost" size="icon" onClick={signOut}>
-              <LogOut className="h-5 w-5" />
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={signOut}
+              className="text-destructive hover:text-destructive hover:bg-destructive/10 flex items-center gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+              <span className="hidden md:inline">Logout</span>
             </Button>
           </div>
         </header>

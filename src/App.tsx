@@ -10,6 +10,10 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Mentors from "./pages/Mentors";
 import Sessions from "./pages/Sessions";
+import Learning from "./pages/Learning";
+import Messages from "./pages/Messages";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,22 +45,22 @@ const App = () => (
             } />
             <Route path="/messages" element={
               <ProtectedRoute>
-                <div>Messages Page (Coming Soon)</div>
+                <Messages />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <div>Profile Page (Coming Soon)</div>
+                <Profile />
               </ProtectedRoute>
             } />
             <Route path="/settings" element={
               <ProtectedRoute>
-                <div>Settings Page (Coming Soon)</div>
+                <Settings />
               </ProtectedRoute>
             } />
             <Route path="/learning" element={
               <ProtectedRoute>
-                <div>Learning Page (Coming Soon)</div>
+                <Learning />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

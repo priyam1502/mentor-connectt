@@ -16,12 +16,6 @@ const Features = () => {
       color: "text-green-600",
     },
     {
-      title: "Built-in Video Calls",
-      description: "High-quality video sessions with screen sharing, recording, and integrated chat for the best experience.",
-      icon: Video,
-      color: "text-purple-600",
-    },
-    {
       title: "Expert Community",
       description: "Connect with 10,000+ verified industry leaders from top companies worldwide.",
       icon: Users,
