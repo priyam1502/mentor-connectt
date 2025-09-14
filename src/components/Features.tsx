@@ -36,8 +36,14 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-subtle">
-      <div className="container mx-auto px-6 lg:px-8">
+    <section className="py-24 bg-gradient-subtle relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl animate-float-delayed"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Everything you need to{" "}
@@ -55,17 +61,17 @@ const Features = () => {
           {features.map((feature, index) => (
             <Card 
               key={feature.title} 
-              className="card-hover bg-white/50 backdrop-blur-sm border-white/20"
+              className="card-hover bg-card/50 dark:bg-card/70 backdrop-blur-sm border-border/50 shadow-xl dark:shadow-glow-primary/10"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <CardHeader>
-                <div className={`w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center mb-4`}>
-                  <feature.icon className="h-6 w-6 text-white" />
+              <CardHeader className="pb-4">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center mb-6 shadow-lg glow-primary/50`}>
+                  <feature.icon className="h-7 w-7 text-white" />
                 </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
+                <CardTitle className="text-xl font-bold">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base leading-relaxed">
+                <CardDescription className="text-base leading-relaxed text-muted-foreground">
                   {feature.description}
                 </CardDescription>
               </CardContent>

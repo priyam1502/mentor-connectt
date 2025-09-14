@@ -7,8 +7,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-muted/50 to-muted">
-      <div className="container mx-auto px-6 lg:px-8 py-16">
+    <footer className="bg-gradient-to-b from-muted/50 to-muted/80 dark:from-background/50 dark:to-background/80 backdrop-blur-sm border-t border-border/50">
+      <div className="container mx-auto px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
@@ -20,13 +20,13 @@ const Footer = () => {
               through meaningful mentorship.
             </p>
             <div className="flex gap-3">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
                 <Twitter className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
                 <Linkedin className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-110">
                 <Github className="h-5 w-5" />
               </Button>
             </div>
@@ -35,22 +35,22 @@ const Footer = () => {
           {/* Product */}
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Product</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground transition-colors">Find Mentors</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Become a Mentor</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Features</a></li>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Find Mentors</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Become a Mentor</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Pricing</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Features</a></li>
             </ul>
           </div>
 
           {/* Company */}
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Company</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+            <ul className="space-y-3 text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">About Us</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Careers</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Blog</a></li>
+              <li><a href="#" className="hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block">Contact</a></li>
             </ul>
           </div>
 
@@ -61,8 +61,8 @@ const Footer = () => {
               Get the latest mentorship tips and platform updates.
             </p>
             <div className="flex gap-2">
-              <Input placeholder="Enter your email" className="flex-1" />
-              <Button variant="default">
+              <Input placeholder="Enter your email" className="flex-1 bg-background/50 border-border/50 focus:border-primary" />
+              <Button variant="gradient" className="shadow-lg">
                 <Mail className="h-4 w-4" />
               </Button>
             </div>
@@ -76,9 +76,9 @@ const Footer = () => {
             © {currentYear} MentorConnect. All rights reserved.
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-foreground transition-colors">Cookie Policy</a>
+            <a href="#" className="hover:text-primary transition-all duration-300 hover:scale-105">Privacy Policy</a>
+            <a href="#" className="hover:text-primary transition-all duration-300 hover:scale-105">Terms of Service</a>
+            <a href="#" className="hover:text-primary transition-all duration-300 hover:scale-105">Cookie Policy</a>
           </div>
         </div>
       </div>

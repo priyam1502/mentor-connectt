@@ -18,20 +18,20 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
           <div className="text-center lg:text-left animate-fade-in-up">
-            <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Connect.
-              <br />
-              <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+            <h1 className="text-6xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight">
+              <span className="block">Connect.</span>
+              <span className="block bg-gradient-to-r from-yellow-300 via-orange-300 to-pink-300 bg-clip-text text-transparent">
                 Learn.
               </span>
-              <br />
-              <span className="bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-pink-300 via-purple-300 to-violet-300 bg-clip-text text-transparent">
                 Grow.
               </span>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed">
-              Join thousands of professionals who've accelerated their careers through meaningful mentorship connections.
+            <p className="text-xl lg:text-2xl text-white/95 mb-10 max-w-2xl leading-relaxed font-medium">
+              Join thousands of professionals who've accelerated their careers through 
+              <span className="text-yellow-300 font-semibold"> meaningful mentorship </span>
+              connections.
             </p>
 
             {/* CTA Buttons */}

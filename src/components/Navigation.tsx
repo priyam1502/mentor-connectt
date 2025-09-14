@@ -7,7 +7,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 dark:bg-background/90 backdrop-blur-lg border-b border-border/50 shadow-lg dark:shadow-glow-primary/20">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -19,16 +19,16 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/features" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/features" className="text-foreground/70 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">
               Features
             </a>
-            <a href="/find-mentors" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/find-mentors" className="text-foreground/70 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">
               Find Mentors
             </a>
-            <a href="/about" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/about" className="text-foreground/70 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">
               About
             </a>
-            <a href="/pricing" className="text-foreground/80 hover:text-foreground transition-colors">
+            <a href="/pricing" className="text-foreground/70 hover:text-primary transition-all duration-300 hover:scale-105 font-medium">
               Pricing
             </a>
           </div>
@@ -36,10 +36,10 @@ const Navigation = () => {
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <Button variant="ghost" asChild>
+            <Button variant="ghost" className="transition-all duration-300 hover:scale-105" asChild>
               <a href="/auth">Sign In</a>
             </Button>
-            <Button variant="default" asChild>
+            <Button variant="gradient" size="lg" className="transition-all duration-300 hover:scale-105 shadow-lg" asChild>
               <a href="/auth">Get Started</a>
             </Button>
           </div>
@@ -55,7 +55,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/20">
+          <div className="md:hidden py-4 border-t border-border/50 bg-gradient-card animate-fade-in">
             <div className="flex flex-col space-y-4">
               <a href="/features" className="text-foreground/80 hover:text-foreground transition-colors">
                 Features
