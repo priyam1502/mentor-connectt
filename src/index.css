@@ -86,25 +86,69 @@
   .dark {
     /* Dark mode colors - refined for MentorConnect */
     --background: 224 71% 4%;
-    --foreground: 0 0% 100%;
-    --card: 224 71% 4%;
-    --card-foreground: 0 0% 100%;
+    --foreground: 0 0% 98%;
+
+    /* Card system with proper dark contrast */
+    --card: 215 28% 17%;
+    --card-foreground: 0 0% 98%;
+
+    /* Popovers and overlays */
+    --popover: 215 28% 17%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary brand - lighter for dark mode */
     --primary: 217 91% 70%;
+    --primary-foreground: 224 71% 4%;
+    --primary-glow: 217 91% 80%;
+
+    /* Secondary - lighter purple for dark mode */
     --secondary: 262 83% 68%;
+    --secondary-foreground: 224 71% 4%;
+
+    /* Muted colors adjusted for dark mode */
     --muted: 215 28% 17%;
     --muted-foreground: 215 20% 65%;
+
+    /* Accent - brighter for dark mode */
     --accent: 275 100% 75%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
+    --accent-foreground: 224 71% 4%;
+
+    /* Success, warning, destructive for dark mode */
+    --success: 142 76% 46%;
+    --success-foreground: 224 71% 4%;
+    
+    --warning: 38 92% 60%;
+    --warning-foreground: 224 71% 4%;
+    
+    --destructive: 0 84% 70%;
+    --destructive-foreground: 224 71% 4%;
+
+    /* Borders and inputs for dark mode */
+    --border: 215 28% 25%;
+    --input: 215 28% 25%;
     --ring: 217 91% 70%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Sidebar colors for dark mode */
+    --sidebar-background: 224 71% 4%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 217 91% 70%;
+    --sidebar-primary-foreground: 224 71% 4%;
+    --sidebar-accent: 215 28% 17%;
+    --sidebar-accent-foreground: 215 20% 65%;
+    --sidebar-border: 215 28% 25%;
+    --sidebar-ring: 217 91% 70%;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 70%) 0%, hsl(262 83% 68%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(275 100% 75%) 0%, hsl(217 91% 80%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 70%) 0%, hsl(262 83% 68%) 50%, hsl(275 100% 75%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(215 28% 17%) 0%, hsl(215 28% 20%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(215 28% 17%) 0%, hsl(215 28% 15%) 100%);
+
+    /* Dark mode glow effects */
+    --glow-primary: 0 20px 40px -10px hsl(217 91% 70% / 0.4);
+    --glow-secondary: 0 20px 40px -10px hsl(262 83% 68% / 0.4);
+    --glow-accent: 0 20px 40px -10px hsl(275 100% 75% / 0.4);
   }
 }
 
